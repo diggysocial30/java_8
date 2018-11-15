@@ -27,12 +27,24 @@ public class Main {
 		Collections.sort(employees, (e1, e2) -> {
 			System.out.println("Let us see");
 			return e1.getName().compareTo(e2.getName());
+			
 		});
 
 		for (Employee employee : employees) {
 			System.out.println(employee.getName());
+			new Thread(() -> System.out.println("Inside thread :: "+employee.getName())).start();
 		}
 
+		for (int i=0;i<employees.size();i++) {
+			System.out.println(employees.get(i).getName());
+			// Throwing error
+			//new Thread(() -> System.out.println("Inside thread :: "+employees.get(i).getName())).start();
+		}
+		
+		// Iterable interface
+		
+		employees.forEach( e -> System.out.println("Iterable interface :: "+e.getName()));
+		
 		UpperConcat uc=(s1,s2) -> s1+s2;
 		
 		String silly=doStringStuff((s1,s2) -> s1+s2, "s", "j");
