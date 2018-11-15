@@ -47,6 +47,8 @@ public class Main {
 		System.out.println("*********doSomething2*********"+cs.doSomething2());
 		
 		System.out.println("*********CheckSomething2 cs2*********"+cs2.doSomething());
+		
+		cs2.usingNestedBlocks();
 	}
 	
 	 public final static String doStringStuff(UpperConcat uc, String s1, String s2) {
@@ -116,19 +118,44 @@ class CheckSomething{
 		
 		public String doSomething(){
 			int i=0;
+			i++;
+			
 			final int j=0;
+			UpperConcat uc=(s1,s2) -> {
+				// Variable has to be final
+				//System.out.println("*I is**"+i);
+				System.out.println("*J is**"+j);
+				 System.out.println("Inside doSomething of"+this.getClass().getSimpleName());
+				     String p=s1+s2;
+					return p;
+			};
+			
+
+			// Variable has to be final
+			//System.out.println("*I is**"+i);
 			{
-				UpperConcat uc=new UpperConcat() {
-					
-					@Override
-					public String upperAndConcat(String s1, String s2) {
-						return s1+s2;
+				String s1 = null;
+				String s2 = null;
+			System.out.println("*J is**"+j);
+			 System.out.println("Inside doSomething of"+this.getClass().getSimpleName());
+			     String p=s1+s2;
+				return p;
+		}
+		}
+		
+		
+		public void usingNestedBlocks()
+		{
+			int n=20;
+			Runnable run= () -> {
+					try{
+						Thread.sleep(500000);
+					}catch (InterruptedException e) {
+						// TODO: handle exception
 					}
-				};
-				i++;
-			//	j++;
-			}
-			System.out.println(i);
-			return "CheckSomething2 doSomething";
+				System.out.println(" ** com.divs.lambdas.CheckSomething2.usingNestedBlocks()***"+n);	
+			};
+			
+			new Thread(run).start();
 		}
 	}
